@@ -6,53 +6,60 @@ using UnityEngine.Events;
 public class PlayerManager : Singleton<PlayerManager>
 {
     [SerializeField] private Stats _stats = new Stats();
+    private bool _canMove = true;
+
+    public bool CanMove => _canMove;
+    public bool IsWearingMask => !_canMove;
 
     // Read-Only
     public Stats Stats { get { return _stats; } }
 
-    private void Update()
+    public void ResetStats()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) Stats.AddScore();
+        Stats.CurrentHealth = Stats.MaxHealth;
+        Stats.Score = 0;
     }
+
+    public void SetCanMove(bool canMove) => _canMove = canMove;
 }
 
 [System.Serializable]
 public class Stats
 {
-    public float Speed;
-    public float MaxHealth;
-    public float CurrentHealth { get; private set; }
+    public int Speed;
+    public int MaxHealth;
+    public int CurrentHealth;
     public int Score;
 
-    public UnityEvent<int> ScoreChanged;
-
-    public Stats()
-    {
-        CurrentHealth = MaxHealth;
-    }
+    [HideInInspector] public UnityEvent<int> OnScoreChanged;
+    [HideInInspector] public UnityEvent<float> OnHealthChanged;
 
     /// <summary>
     /// Adds health to the stat holder's current health.
     /// Caps the value to the max health.
     /// </summary>
-    public void Heal(float health)
+    public void Heal(int health = 1)
     {
-        float newHealth = CurrentHealth + health;
+        int newHealth = CurrentHealth + health;
 
         // If newHealth is greater than _maxHealth, use _maxHealth.
         // If not, use newHealth.
         CurrentHealth = newHealth > MaxHealth ? MaxHealth : newHealth;
+
+        OnHealthChanged?.Invoke(CurrentHealth);
     }
 
     /// <summary>
     /// Reduces health to the stat holder's current health.
     /// </summary>
     /// <returns>True if the stat holder no longer has health or is dead.</returns>
-    public bool TakeDamage(float damage)
+    public bool TakeDamage(int damage = 1)
     {
-        float newHealth = CurrentHealth - damage;
+        int newHealth = CurrentHealth - damage;
 
-        CurrentHealth = newHealth < 0f ? 0f : newHealth;
+        CurrentHealth = newHealth < 0 ? 0 : newHealth;
+
+        OnHealthChanged?.Invoke(CurrentHealth);
 
         return CurrentHealth == 0f;
     }
@@ -61,6 +68,6 @@ public class Stats
     {
         Score += score;
 
-        ScoreChanged?.Invoke(Score);
+        OnScoreChanged?.Invoke(Score);
     }
 }

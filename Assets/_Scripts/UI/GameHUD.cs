@@ -9,12 +9,12 @@ public class GameHUD : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerManager.Instance?.Stats.ScoreChanged.AddListener(UpdateScore);
+        PlayerManager.Instance?.Stats.OnScoreChanged.AddListener(UpdateScore);
     }
 
     private void OnDisable()
     {
-        PlayerManager.Instance?.Stats.ScoreChanged.RemoveListener(UpdateScore);
+        PlayerManager.Instance?.Stats.OnScoreChanged.RemoveListener(UpdateScore);
     }
 
     private void UpdateScore(int score)

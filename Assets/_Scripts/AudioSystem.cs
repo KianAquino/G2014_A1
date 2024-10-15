@@ -8,7 +8,8 @@ public enum MusicType
 public enum SFXType
 {
     CLICK,
-    EAT
+    EAT,
+    HURT
 }
 
 [ExecuteInEditMode]

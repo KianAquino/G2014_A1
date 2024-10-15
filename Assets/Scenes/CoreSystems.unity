@@ -540,7 +540,10 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
   - Name: EAT
     _sounds:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+  - Name: HURT
+    _sounds:
+    - {fileID: 8300000, guid: ff5f85da24bc943d1abdc5760a22bc81, type: 3}
 --- !u!1 &1649486895
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,10 +667,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats:
     Speed: 2
-    MaxHealth: 0
-    CurrentHealth: 0
+    MaxHealth: 3
     Score: 0
-    ScoreChanged:
+    OnScoreChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHealthChanged:
       m_PersistentCalls:
         m_Calls: []
 --- !u!1 &2122443844
