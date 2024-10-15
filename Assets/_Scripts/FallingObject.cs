@@ -16,7 +16,6 @@ public class FallingObject : MonoBehaviour
 
     private void Start()
     {
-        _speed = LevelManager.Instance.Gravity;
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
         SetRandomSprite();
@@ -35,7 +34,7 @@ public class FallingObject : MonoBehaviour
     private void Collected()
     {
         PlayerManager.Instance.Stats.AddScore();
-        AudioSystem.Instance.PlaySFX(SFXType.EAT, 0.5f);
+        AudioSystem.Instance.PlaySFX(SFXType.EAT, 0.25f);
 
         Destroy(gameObject);
     }
@@ -44,4 +43,6 @@ public class FallingObject : MonoBehaviour
     {
         _spriteRenderer.sprite = _sprites[Random.Range(0, _sprites.Length)];
     }
+
+    public void SetSpeed(float speed) => _speed = speed;
 }

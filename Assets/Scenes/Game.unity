@@ -828,7 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravity: 1
-  _baseSpawnInterval: 1
+  _baseSpawnInterval: 2
   _from: {x: -1.5, y: 6}
   _to: {x: 1.5, y: 6}
   _fallingObject: {fileID: 1005056634816533798, guid: b1c3f600504377b4a8b652e66783f092, type: 3}
