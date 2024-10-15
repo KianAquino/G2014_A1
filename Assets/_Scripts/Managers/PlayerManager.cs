@@ -1,35 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    [SerializeField] private Stats _stats;
+    [SerializeField] private Stats _stats = new Stats();
 
     // Read-Only
     public Stats Stats { get { return _stats; } }
 
-    private void Start()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space)) Stats.AddScore();
     }
 }
 
 [System.Serializable]
 public class Stats
 {
-    [SerializeField] private float _damage;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _maxHealth;
-    private float _currentHealth;
+    public float Speed;
+    public float MaxHealth;
+    public float CurrentHealth { get; private set; }
+    public int Score;
 
-    public float Damage { get { return _damage; } }
-    public float Speed { get { return _speed; } }
-    public float MaxHealth { get { return _maxHealth; } }
+    public UnityEvent<int> ScoreChanged;
 
     public Stats()
     {
-        _currentHealth = _maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     /// <summary>
@@ -38,11 +37,11 @@ public class Stats
     /// </summary>
     public void Heal(float health)
     {
-        float newHealth = _currentHealth + health;
+        float newHealth = CurrentHealth + health;
 
         // If newHealth is greater than _maxHealth, use _maxHealth.
         // If not, use newHealth.
-        _currentHealth = newHealth > _maxHealth ? _maxHealth : newHealth;
+        CurrentHealth = newHealth > MaxHealth ? MaxHealth : newHealth;
     }
 
     /// <summary>
@@ -51,10 +50,17 @@ public class Stats
     /// <returns>True if the stat holder no longer has health or is dead.</returns>
     public bool TakeDamage(float damage)
     {
-        float newHealth = _currentHealth - damage;
+        float newHealth = CurrentHealth - damage;
 
-        _currentHealth = newHealth < 0f ? 0f : newHealth;
+        CurrentHealth = newHealth < 0f ? 0f : newHealth;
 
-        return _currentHealth == 0f;
+        return CurrentHealth == 0f;
+    }
+
+    public void AddScore(int score = 1)
+    {
+        Score += score;
+
+        ScoreChanged?.Invoke(Score);
     }
 }

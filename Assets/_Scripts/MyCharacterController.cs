@@ -15,6 +15,8 @@ public class MyCharacterController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.gravityScale = 0f;
+
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
     }
 
     private void Update()

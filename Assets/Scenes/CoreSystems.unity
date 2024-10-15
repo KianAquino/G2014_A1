@@ -492,6 +492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1412446797}
+  - component: {fileID: 1412446798}
   m_Layer: 0
   m_Name: AudioSystem
   m_TagString: Untagged
@@ -514,6 +515,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1845672092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1412446798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412446795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd72a5f64c23cd4bb904c6ad9553a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicList:
+  - Name: MAIN_MENU
+    _sounds:
+    - {fileID: 8300000, guid: 37dfcbcfc7ce85644b32a5b0b79309d8, type: 3}
+  - Name: GAME
+    _sounds:
+    - {fileID: 8300000, guid: 20f9d01904e1a2d41be8734fbc2c2182, type: 3}
+  _SFXList:
+  - Name: CLICK
+    _sounds:
+    - {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  - Name: EAT
+    _sounds:
+    - {fileID: 0}
 --- !u!1 &1649486895
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,9 +663,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats:
-    _damage: 0
-    _speed: 2
-    _maxHealth: 0
+    Speed: 2
+    MaxHealth: 0
+    CurrentHealth: 0
+    Score: 0
+    ScoreChanged:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &2122443844
 GameObject:
   m_ObjectHideFlags: 0

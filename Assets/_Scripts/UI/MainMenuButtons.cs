@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenuButtons : MonoBehaviour
@@ -7,6 +5,20 @@ public class MainMenuButtons : MonoBehaviour
     public void OnPlayClicked()
     {
         GameManager.Instance.LoadScene(2);
-        AudioSystem.Instance.PlaySFX(SFXType.CLICK);
+        ClickSound();
     }
+
+    public void OnInstructionsClicked()
+    {
+        MainMenu.Instance.SwitchPage(1);
+        ClickSound();
+    }
+
+    public void OnReturnClicked()
+    {
+        MainMenu.Instance.Reload();
+        ClickSound();
+    }
+
+    private void ClickSound() => AudioSystem.Instance.PlaySFX(SFXType.CLICK, 0.5f);
 }
