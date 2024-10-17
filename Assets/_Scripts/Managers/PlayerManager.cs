@@ -16,8 +16,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void ResetStats()
     {
-        Stats.CurrentHealth = Stats.MaxHealth;
-        Stats.Score = 0;
+        Stats.SetHealth(Stats.MaxHealth);
+        Stats.SetScore(0);
     }
 
     public void SetCanMove(bool canMove) => _canMove = canMove;
@@ -32,7 +32,7 @@ public class Stats
     public int Score;
 
     [HideInInspector] public UnityEvent<int> OnScoreChanged;
-    [HideInInspector] public UnityEvent<float> OnHealthChanged;
+    [HideInInspector] public UnityEvent<int> OnHealthChanged;
 
     /// <summary>
     /// Adds health to the stat holder's current health.
@@ -62,6 +62,20 @@ public class Stats
         OnHealthChanged?.Invoke(CurrentHealth);
 
         return CurrentHealth == 0f;
+    }
+
+    public void SetHealth(int health)
+    {
+        CurrentHealth = health;
+
+        OnHealthChanged?.Invoke(CurrentHealth);
+    }
+
+    public void SetScore(int score)
+    {
+        Score = score;
+
+        OnScoreChanged?.Invoke(Score);
     }
 
     public void AddScore(int score = 1)

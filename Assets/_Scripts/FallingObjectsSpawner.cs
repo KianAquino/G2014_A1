@@ -17,6 +17,11 @@ public class FallingObjectsSpawner : Singleton<FallingObjectsSpawner>
 
     public void Begin()
     {
+        if (_running == true)
+        {
+            Debug.Log("FallingObjectsSpawner is already running.");
+            return;
+        }
         _running = true;
 
         SpawnObjects();
@@ -26,8 +31,6 @@ public class FallingObjectsSpawner : Singleton<FallingObjectsSpawner>
 
     private void SpawnObjects()
     {
-        if (!_running) return;
-
         GameObject prefab = LevelManager.Instance.FallingObject;
 
         GameObject newObject = Instantiate(prefab);
@@ -40,7 +43,8 @@ public class FallingObjectsSpawner : Singleton<FallingObjectsSpawner>
         _delay -= 0.02f;
         _delay = Mathf.Max(_delay, 1f);
         _speed += 0.0125f;
+        _speed = Mathf.Min(_speed, 2.5f);
 
-        Invoke("SpawnObjects", _delay);
+        if (_running) Invoke("SpawnObjects", _delay);
     }
 }

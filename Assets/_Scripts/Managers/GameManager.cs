@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,7 +29,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     /// <param name="buildIndex"></param>
     /// <returns></returns>
-    public bool LoadScene(int buildIndex, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+    public AsyncOperation LoadScene(int buildIndex, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
     {
         int sceneCount = SceneManager.sceneCount;
         List<Scene> unloadScenes = new List<Scene>();
@@ -48,7 +49,7 @@ public class GameManager : Singleton<GameManager>
             {
                 unloadScenes.Clear();
                 Debug.LogError($"Attemted to load a scene that's already loaded. ({scene.name})");
-                return false;
+                return null;
             }
 
             unloadScenes.Add(scene);
@@ -60,10 +61,29 @@ public class GameManager : Singleton<GameManager>
             SceneManager.UnloadSceneAsync(scene);
         }
 
-        SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
-
         unloadScenes.Clear();
 
-        return true;
+        return SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameOverSequence());
+    }
+
+    private IEnumerator GameOverSequence()
+    {
+        AsyncOperation asyncOperation = LoadScene(1);
+
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+
+        string message = $"RESULT\n\n\n" +
+            $"FINAL SCORE\n\n" +
+            $"{PlayerManager.Instance.Stats.Score}";
+
+        MainMenu.Instance.ShowResult(message);
     }
 }

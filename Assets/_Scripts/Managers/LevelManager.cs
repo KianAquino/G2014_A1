@@ -20,26 +20,27 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
-        FallingObjectsSpawner.Instance.Begin();
         PlayerManager.Instance.ResetStats();
+
+        FallingObjectsSpawner.Instance.Begin();
+        SpringBonnieSpawner.Instance.Begin();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Missed Falling Object
         if (collision.CompareTag("FallingObject"))
-        {;
-            Destroy(collision.gameObject);
-
+        {
             bool isDead = PlayerManager.Instance.Stats.TakeDamage();
             AudioSystem.Instance.PlaySFX(SFXType.HURT);
 
-            if (isDead)
-            {
-                GameManager.Instance.LoadScene(1);
-                PlayerManager.Instance.ResetStats();
-            }
+            if (isDead) GameManager.Instance.GameOver();
         }
+
+        // Despawn Spring Bonnie
+        if (collision.CompareTag("SpringBonnie")) AudioSystem.Instance.PlaySFX(SFXType.BONNIE_EXIT);
+
+        Destroy(collision.gameObject);
     }
 
     public Vector2 GetRandomSpawnPosition()

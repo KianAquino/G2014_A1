@@ -9,7 +9,11 @@ public enum SFXType
 {
     CLICK,
     EAT,
-    HURT
+    HURT,
+    BONNIE_ENTER,
+    BONNIE_EXIT,
+    MASK_ON,
+    MASK_OFF
 }
 
 [ExecuteInEditMode]

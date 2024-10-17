@@ -543,7 +543,19 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
   - Name: HURT
     _sounds:
+    - {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
+  - Name: BONNIE_ENTER
+    _sounds:
     - {fileID: 8300000, guid: ff5f85da24bc943d1abdc5760a22bc81, type: 3}
+  - Name: BONNIE_EXIT
+    _sounds:
+    - {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
+  - Name: MASK_ON
+    _sounds:
+    - {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
+  - Name: MASK_OFF
+    _sounds:
+    - {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
 --- !u!1 &1649486895
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +680,7 @@ MonoBehaviour:
   _stats:
     Speed: 2
     MaxHealth: 3
+    CurrentHealth: 0
     Score: 0
     OnScoreChanged:
       m_PersistentCalls:

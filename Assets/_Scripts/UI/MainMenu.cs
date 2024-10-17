@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MainMenu : Singleton<MainMenu>
 {
     [SerializeField] GameObject[] _pages;
+    [SerializeField] TextMeshProUGUI _result;
 
     public GameObject[] Pages { get { return _pages; } }
 
@@ -36,5 +38,11 @@ public class MainMenu : Singleton<MainMenu>
             if (i == pageNumber) _pages[i].SetActive(true);
             else _pages[i].SetActive(false);
         }
+    }
+
+    public void ShowResult(string message)
+    {
+        SwitchPage(2);
+        _result.text = message;
     }
 }
