@@ -40,6 +40,10 @@ public class MainMenu : Singleton<MainMenu>
         }
     }
 
+    /// <summary>
+    /// Automatically switches to the "Result" page.
+    /// </summary>
+    /// <param name="message"></param>
     public void ShowResult(string message)
     {
         SwitchPage(2);
